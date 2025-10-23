@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}My Tasks{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow">
+      <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">🌻 My Daily Tasks</h5>
+        <a href="{% url 'todo:create' %}" class="btn btn-success btn-sm">+ Add Task</a>
+      </div>
+      <ul class="list-group list-group-flush">
+        {% for task in tasks %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span class="{% if task.completed %}text-decoration-line-through text-muted{% endif %}">
+              {{ task.title }}
+            </span>
+            <div>
+              <a href="{% url 'todo:update' task.id %}" class="btn btn-warning btn-sm">✏️</a>
+              <a href="{% url 'todo:delete' task.id %}" class="btn btn-danger btn-sm">🗑️</a>
+            </div>
+          </li>
+        {% empty %}
+          <li class="list-group-item text-center text-muted">No tasks yet — add one to make your sunflower smile 🌻</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 🌸 Calendar -->
+<div class="row justify-content-center mt-4">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-info text-white">📅 Calendar</div>
+      <div class="card-body">
+        <input type="date" id="calendar" class="form-control">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
